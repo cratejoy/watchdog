@@ -26,6 +26,7 @@ from functools import reduce
 from ctypes import c_int, c_char_p, c_uint32
 from watchdog.utils import has_attribute
 from watchdog.utils import UnsupportedLibc
+from watchdog.utils.globals import options as global_options
 
 
 def _load_libc():
@@ -366,8 +367,19 @@ class Inotify(object):
         if not os.path.isdir(path):
             raise OSError('Path is not a directory')
         self._add_watch(path, mask)
+
+        ignored_directories = global_options.get('ignored_directories', [])
+        # Convert any relative paths to absolute paths
+        ignored_directories = [os.path.abspath(x) for x in ignored_directories]
+
         if recursive:
             for root, dirnames, _ in os.walk(path):
+                # Remove directories we don't want to watch from dirnames
+                for (dirname, full_path) in [(dirname, os.path.join(root, dirname)) for dirname in dirnames]:
+                    if full_path in ignored_directories:
+                        idx = dirnames.index(dirname)
+                        del dirnames[idx]  # removing this with `del` will make os.walk ignore its subdirectories
+
                 for dirname in dirnames:
                     full_path = os.path.join(root, dirname)
                     if os.path.islink(full_path):
