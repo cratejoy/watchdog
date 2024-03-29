@@ -3,18 +3,30 @@
 Changelog
 ---------
 
-3.0.1
+4.0.1
 ~~~~~
 
-2023-xx-xx • `full history <https://github.com/gorakhargosh/watchdog/compare/v3.0.0...HEAD>`__
+2024-xx-xx • `full history <https://github.com/gorakhargosh/watchdog/compare/v4.0.0...HEAD>`__
 
+- [inotify] Fix missing ``event_filter`` for the full emitter (`#1032 <https://github.com/gorakhargosh/watchdog/pull/1032>`__)
+- Thanks to our beloved contributors: @mraspaud
+
+4.0.0
+~~~~~
+
+2024-02-06 • `full history <https://github.com/gorakhargosh/watchdog/compare/v3.0.0...v4.0.0>`__
+
+- Drop support for Python 3.7.
+- Add support for Python 3.12.
+- [snapshot] Add typing to ``dirsnapshot`` (`#1012 <https://github.com/gorakhargosh/watchdog/pull/1012>`__)
+- [snapshot] Added ``DirectorySnapshotDiff.ContextManager`` (`#1011 <https://github.com/gorakhargosh/watchdog/pull/1011>`__)
 - [events] ``FileSystemEvent``, and subclasses, are now ``dataclass``es, and their ``repr()`` has changed
 - [windows] ``WinAPINativeEvent`` is now a ``dataclass``, and its ``repr()`` has changed
 - [events] Log ``FileOpenedEvent``, and ``FileClosedEvent``, events in ``LoggingEventHandler``
 - [tests] Improve ``FileSystemEvent`` coverage
 - [watchmedo] Log all events in ``LoggerTrick``
 - [windows] The ``observers.read_directory_changes.WATCHDOG_TRAVERSE_MOVED_DIR_DELAY`` hack was removed. The constant will be kept to prevent breaking other softwares.
-- Thanks to our beloved contributors: @BoboTiG
+- Thanks to our beloved contributors: @BoboTiG, @msabramo
 
 3.0.0
 ~~~~~

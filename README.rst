@@ -6,7 +6,7 @@ Watchdog
 
 Python API and shell utilities to monitor file system events.
 
-Works on 3.7+.
+Works on 3.8+.
 
 Example API Usage
 -----------------
@@ -27,6 +27,7 @@ as command-line arguments and logs events generated:
                             format='%(asctime)s - %(message)s',
                             datefmt='%Y-%m-%d %H:%M:%S')
         path = sys.argv[1] if len(sys.argv) > 1 else '.'
+        logging.info(f'start watching directory {path!r}')
         event_handler = LoggingEventHandler()
         observer = Observer()
         observer.schedule(event_handler, path, recursive=True)
@@ -212,7 +213,7 @@ appropriate observer like in the example above, do::
 Dependencies
 ------------
 
-1. Python 3.7 or above.
+1. Python 3.8 or above.
 2. XCode_ (only on macOS when installing from sources)
 3. PyYAML_ (only for ``watchmedo``)
 
